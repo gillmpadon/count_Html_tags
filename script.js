@@ -1,3 +1,12 @@
+counter = 0,name ="",viewlist= ""
+function viewlist_tags(){
+  if(viewlist.length<1){
+    console.log("No tags Found")
+  }else{
+    console.log(viewlist)
+  }
+
+}
 window.onload = function() {
   const fileInput = document.getElementById("fileInput");
   fileInput.addEventListener("change", function() {
@@ -7,7 +16,6 @@ window.onload = function() {
     reader.onload = function() {
       const fileContent = reader.result;
       const lines = fileContent.split("\n");
-      counter = 0,name =""
       const htmlTags = ["<a>","<abbr>","<address>","<area>","<article>","<aside>","<audio>","<b>","<base>","<bdi>","<bdo>","<blockquote>","<body>","<br>","<button>","<canvas>","<caption>","<cite>","<code>","<col>","<colgroup>","<data>","<datalist>","<dd>","<del>","<details>","<dfn>","<dialog>","<div>","<dl>","<dt>","<em>","<embed>","<fieldset>","<figcaption>","<figure>","<footer>","<form>","<h1>","<h2>","<h3>","<h4>","<h5>","<h6>","<head>","<header>","<hgroup>","<hr>","<html>","<i>","<iframe>","<img>","<input>","<ins>","<kbd>","<label>","<legend>","<li>","<link>","<main>","<map>","<mark>","<menu>","<menuitem>","<meta>","<meter>","<nav>","<noscript>","<object>","<ol>","<optgroup>","<option>","<output>","<p>","<param>","<picture >","<pre>","<progress>","<q>","<rb>","<rp>","<rt>","<rtc>","<ruby>","<s>","<samp>","<script>","<section>","<select>","<slot>","<small>","<source>","<span>","<strong>","<style>","<sub>","<summary>","<sup>","<table>","<tbody>","<td>","<template>","<textarea>","<tfoot>","<th>","<thead>","<time>","<title>","<tr>","<track>","<u>","<ul>","<var>","<video>","<wbr>"];
       for (let line of lines) {
         // name += getName(line)
@@ -24,13 +32,17 @@ window.onload = function() {
         for (let index = 0; index < htmlTags.length; index++) {
             if(line.includes(htmlTags[index])){
                 counter++;
-                console.log(htmlTags.length+" "+htmlTags[index])   
+                viewlist += htmlTags[index] +" "
                 htmlTags.splice(index,1) 
             }
             
         }
       }
-      console.log(`Counter is ${counter} and Name is ${name}`);
+      if(counter==0){
+        console.log("No tags found! Make sure to upload an Html File")
+      }else{
+        console.log(`Counter is ${counter} and Name is ${name}`);
+      }
     };
   });
 };
